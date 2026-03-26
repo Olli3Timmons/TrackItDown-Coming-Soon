@@ -2,16 +2,19 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/ui/spinner"
 import { Input } from "@/components/ui/input"
 import { ArrowRight, MapPin, ChevronDown, Eye, TrendingUp } from "lucide-react"
 
 export function HeroSection() {
   const [email, setEmail] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
+      setIsLoading(true);
       try {
         const res = await fetch('/api/waitlist', {
           method: 'POST',
@@ -26,6 +29,8 @@ export function HeroSection() {
         }
       } catch (err) {
         // Optionally handle error
+      } finally {
+        setIsLoading(false);
       }
     }
   }
@@ -65,9 +70,19 @@ export function HeroSection() {
                     size="lg"
                     className="h-12 whitespace-nowrap rounded-lg bg-primary text-primary-foreground hover:bg-primary/90"
                     aria-live="polite"
+                    disabled={isLoading}
                   >
-                    Join Waitlist
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    {isLoading ? (
+                      <>
+                        <Spinner className="mr-2" />
+                        Loading...
+                      </>
+                    ) : (
+                      <>
+                        Join Waitlist
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </>
+                    )}
                   </Button>
                 </>
               ) : (

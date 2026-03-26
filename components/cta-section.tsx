@@ -2,12 +2,14 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/ui/spinner"
 import { Input } from "@/components/ui/input"
 import { ArrowRight } from "lucide-react"
 
 export function CtaSection() {
   const [email, setEmail] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -32,6 +34,7 @@ export function CtaSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
+      setIsLoading(true);
       try {
         const res = await fetch('/api/waitlist', {
           method: 'POST',
@@ -46,6 +49,8 @@ export function CtaSection() {
         }
       } catch (err) {
         // Optionally handle error
+      } finally {
+        setIsLoading(false);
       }
     }
   }
@@ -72,9 +77,18 @@ export function CtaSection() {
                   className="h-12 px-4 bg-card border-border text-foreground placeholder:text-muted-foreground"
                   required
                 />
-                <Button type="submit" size="lg" className="h-12 px-6 bg-primary text-primary-foreground hover:bg-primary/90 whitespace-nowrap">
-                  Join the Waitlist
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                <Button type="submit" size="lg" className="h-12 px-6 bg-primary text-primary-foreground hover:bg-primary/90 whitespace-nowrap" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Spinner className="mr-2" />
+                      Loading...
+                    </>
+                  ) : (
+                    <>
+                      Join the Waitlist
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
                 </Button>
               </>
             ) : (
