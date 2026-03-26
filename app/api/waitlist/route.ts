@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
     try {
       await resend.emails.send({
-        from: 'waitlist@trackitdown.com',
+        from: 'waitlist@trackitdown.co.uk',
         to: email,
         subject: 'Welcome to the TrackItDown Waitlist!',
         html
