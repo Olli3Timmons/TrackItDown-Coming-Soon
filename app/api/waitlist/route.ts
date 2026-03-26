@@ -13,7 +13,17 @@ function getCurrentMonth() {
 }
 
 export async function POST(request: Request) {
-  const { email } = await request.json();
+
+  console.log('API route hit');
+  let email = null;
+  try {
+    const body = await request.json();
+    email = body.email;
+    console.log('Email:', email);
+  } catch (err) {
+    console.error('Error parsing request body:', err);
+    return NextResponse.json({ success: false, error: 'Invalid request body.' }, { status: 400 });
+  }
 
   try {
     // Read and update email count
