@@ -6,24 +6,40 @@ import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 
 // Fix for default marker icons in Next.js/Leaflet
-// Instead of images, we'll use a custom HTML div for a modern CSS pinging dot.
-const createCustomIcon = (delay: string) => {
+// Creating an Airbnb-style pill marker with the car model name inner text
+const createCustomIcon = (model: string) => {
   return L.divIcon({
-    className: 'custom-leaflet-marker',
+    className: 'custom-leaflet-marker', // Override default leaflet styling
     html: `
-      <div style="position: relative; width: 16px; height: 16px;">
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; background-color: oklch(0.17 0.005 260); opacity: 0.8;"></div>
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; background-color: oklch(0.17 0.005 260); animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite; animation-delay: ${delay};"></div>
+      <div style="
+        background-color: oklch(0.17 0.005 260);
+        color: white;
+        padding: 5px 12px;
+        border-radius: 24px;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04);
+        transform: translate(-50%, -50%);
+        transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+        cursor: pointer;
+      "
+      onmouseover="this.style.transform='translate(-50%, -50%) scale(1.08)'"
+      onmouseout="this.style.transform='translate(-50%, -50%) scale(1)'"
+      >
+        ${model}
       </div>
     `,
-    iconSize: [16, 16],
-    iconAnchor: [8, 8],
+    iconSize: [0, 0], // Set to 0 so the inner translate(-50%, -50%) centers it perfectly regardless of text width
+    iconAnchor: [0, 0],
   })
 }
 
 // Dummy data for "recent sightings"
 const sightings = [
-  { id: 1, pos: [51.505, -0.09] as [number, number], time: "2 mins ago", model: "Range Rover Sport", status: "Spotted moving" },
+  { id: 1, pos: [51.505, -0.09] as [number, number], time: "2 mins ago", model: "Range Rover", status: "Spotted moving" },
   { id: 2, pos: [52.4862, -1.8904] as [number, number], time: "15 mins ago", model: "Ford Fiesta", status: "Parked unattended" },
   { id: 3, pos: [53.4808, -2.2426] as [number, number], time: "1 hour ago", model: "BMW X5", status: "Reported missing" },
   { id: 4, pos: [51.4545, -2.5879] as [number, number], time: "Just now", model: "Audi A3", status: "Police notified" },
@@ -60,11 +76,11 @@ export default function InteractiveMap({ className = "w-full min-h-[450px]" }: {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
         />
         
-        {sightings.map((sighting, idx) => (
+        {sightings.map((sighting) => (
           <Marker 
             key={sighting.id} 
             position={sighting.pos}
-            icon={createCustomIcon(`${idx * 0.3}s`)}
+            icon={createCustomIcon(sighting.model)}
           >
             <Popup className="rounded-xl overflow-hidden shadow-xl border-0">
               <div className="p-1 min-w-[140px]">
