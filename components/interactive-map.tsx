@@ -5,13 +5,28 @@ import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 
-// Fix for default marker icons in Next.js/Leaflet
-// Creating an Airbnb-style pill marker with the car model name inner text
-const createCustomIcon = (model: string) => {
+// Airbnb-style pill marker with the car model name
+const createCustomIcon = (model: string, isActive: boolean = false) => {
+  const pulseRing = isActive ? `
+    <div style="
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% + 16px);
+      height: calc(100% + 16px);
+      border-radius: 24px;
+      background: rgba(0,0,0,0.06);
+      animation: pillPulse 2s ease-in-out infinite;
+      z-index: -1;
+    "></div>
+  ` : ''
+
   return L.divIcon({
-    className: 'custom-leaflet-marker', // Override default leaflet styling
+    className: 'custom-leaflet-marker',
     html: `
       <div style="
+        position: relative;
         background-color: white;
         color: oklch(0.17 0.005 260);
         padding: 6px 14px;
@@ -25,32 +40,33 @@ const createCustomIcon = (model: string) => {
         box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05);
         transform: translate(-50%, -50%);
         transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1);
-        cursor: pointer;
+        cursor: default;
       "
-      onmouseover="this.style.transform='translate(-50%, -50%) scale(1.08)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05)'"
-      onmouseout="this.style.transform='translate(-50%, -50%) scale(1)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05)'"
       >
+        ${pulseRing}
         ${model}
       </div>
     `,
-    iconSize: [0, 0], // Set to 0 so the inner translate(-50%, -50%) centers it perfectly regardless of text width
+    iconSize: [0, 0],
     iconAnchor: [0, 0],
   })
 }
 
-// Dummy data for "recent sightings"
+// Sighting data — spread across the UK with no vertical overlap
 const sightings = [
-  { id: 1, pos: [51.505, -0.09] as [number, number], time: "2 mins ago", model: "Range Rover", status: "Spotted moving" },
-  { id: 2, pos: [52.4862, -1.8904] as [number, number], time: "15 mins ago", model: "Ford Fiesta", status: "Parked unattended" },
-  { id: 3, pos: [53.4808, -2.2426] as [number, number], time: "1 hour ago", model: "BMW X5", status: "Reported missing" },
-  { id: 4, pos: [51.4545, -2.5879] as [number, number], time: "Just now", model: "Ford Focus", status: "Police notified" },
-  { id: 5, pos: [53.8008, -1.5491] as [number, number], time: "4 hours ago", model: "VW Golf", status: "Recovered" },
+  { id: 1, pos: [51.51, -0.12] as [number, number], model: "Range Rover", active: true },
+  { id: 2, pos: [52.48, -1.90] as [number, number], model: "Ford Fiesta", active: false },
+  { id: 3, pos: [53.48, -2.24] as [number, number], model: "BMW X5", active: false },
+  { id: 4, pos: [51.48, -3.18] as [number, number], model: "Ford Focus", active: false },
+  { id: 5, pos: [54.50, -1.55] as [number, number], model: "VW Golf", active: false },
+  { id: 6, pos: [50.72, -1.88] as [number, number], model: "Audi A3", active: false },
+  { id: 7, pos: [52.95, -1.15] as [number, number], model: "Mercedes C-Class", active: false },
+  { id: 8, pos: [50.37, -4.14] as [number, number], model: "Vauxhall Corsa", active: false },
 ]
 
 export default function InteractiveMap({ className = "w-full min-h-[450px]" }: { className?: string }) {
   const [mounted, setMounted] = useState(false)
 
-  // Avoid hydration mismatch by only rendering after mount
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -65,9 +81,17 @@ export default function InteractiveMap({ className = "w-full min-h-[450px]" }: {
 
   return (
     <div className={`relative overflow-hidden z-0 ${className}`}>
+      {/* Inject the pulse keyframe animation */}
+      <style>{`
+        @keyframes pillPulse {
+          0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+          50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.15); }
+        }
+      `}</style>
+
       <MapContainer 
-        center={[52.5, -1.5]} 
-        zoom={6} 
+        center={[52.5, -2.0]} 
+        zoom={6.5} 
         scrollWheelZoom={false}
         zoomControl={false}
         dragging={false}
@@ -85,34 +109,19 @@ export default function InteractiveMap({ className = "w-full min-h-[450px]" }: {
           <Marker 
             key={sighting.id} 
             position={sighting.pos}
-            icon={createCustomIcon(sighting.model)}
+            icon={createCustomIcon(sighting.model, sighting.active)}
           />
         ))}
         
-        {/* Helper to center/pad the map slightly better on mobile */}
         <MapBoundsManager />
       </MapContainer>
-
-      {/* Fade overlay for styling, similar to the static image version */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent pointer-events-none z-[400]" />
-      
-      <div className="absolute bottom-0 inset-x-0 p-6 text-center z-[400] pointer-events-none">
-        <p className="text-sm font-semibold text-foreground">
-          See real-time sightings on a live map
-        </p>
-        <p className="text-xs text-muted-foreground mt-1">
-          Track reported sightings and recovery progress in real-time
-        </p>
-      </div>
     </div>
   )
 }
 
-// Optional helper to adjust the view slightly once loaded to ensure markers fit well
 function MapBoundsManager() {
   const map = useMap();
   useEffect(() => {
-    // Just a tiny timeout to ensure tiles are ready before any auto-panning if needed
     setTimeout(() => {
       map.invalidateSize();
     }, 100);
