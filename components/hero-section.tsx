@@ -69,7 +69,7 @@ export function HeroSection() {
           {/* Stat banner — social proof */}
           <div className="animate-fade-in-up animation-delay-100">
             <p className="text-sm border border-border/60 bg-background/50 backdrop-blur-sm rounded-full px-4 py-1.5 inline-flex text-muted-foreground tracking-wide shadow-sm">
-              Over <span className="font-semibold text-foreground mx-1">105,000</span> vehicles were stolen in the UK last year
+              Over <span className="font-semibold text-foreground mx-1">129,159</span> vehicles were stolen in the UK last year (ONS)
             </p>
           </div>
 

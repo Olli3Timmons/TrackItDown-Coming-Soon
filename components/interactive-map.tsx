@@ -43,7 +43,7 @@ const sightings = [
   { id: 1, pos: [51.505, -0.09] as [number, number], time: "2 mins ago", model: "Range Rover", status: "Spotted moving" },
   { id: 2, pos: [52.4862, -1.8904] as [number, number], time: "15 mins ago", model: "Ford Fiesta", status: "Parked unattended" },
   { id: 3, pos: [53.4808, -2.2426] as [number, number], time: "1 hour ago", model: "BMW X5", status: "Reported missing" },
-  { id: 4, pos: [51.4545, -2.5879] as [number, number], time: "Just now", model: "Audi A3", status: "Police notified" },
+  { id: 4, pos: [51.4545, -2.5879] as [number, number], time: "Just now", model: "Ford Focus", status: "Police notified" },
   { id: 5, pos: [53.8008, -1.5491] as [number, number], time: "4 hours ago", model: "VW Golf", status: "Recovered" },
 ]
 
