@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useState, useEffect } from "react"
 import { ArrowRight } from "lucide-react"
 
@@ -30,27 +31,13 @@ export function Header() {
           aria-label="TrackItDown home"
           className="flex items-center gap-2.5 text-foreground"
         >
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary shadow-md shadow-primary/20">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <circle cx="12" cy="12" r="4" />
-              <circle cx="12" cy="12" r="1" fill="white" stroke="none" />
-              <line x1="12" y1="2" x2="12" y2="5" />
-              <line x1="12" y1="19" x2="12" y2="22" />
-              <line x1="2" y1="12" x2="5" y2="12" />
-              <line x1="19" y1="12" x2="22" y2="12" />
-            </svg>
-          </div>
+          <Image
+            src="/images/logo.jpg"
+            alt="TrackItDown logo"
+            width={36}
+            height={36}
+            className="rounded-xl object-cover shadow-md shadow-primary/20"
+          />
           <span className="text-lg font-bold tracking-tight">TrackItDown</span>
         </Link>
 
