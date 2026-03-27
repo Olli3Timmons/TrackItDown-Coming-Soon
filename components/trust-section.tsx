@@ -1,6 +1,6 @@
 "use client"
 
-import { ShieldCheck, Lock, Phone, AlertTriangle, MapPin, Users, Globe } from "lucide-react"
+import { ShieldCheck, Lock, Phone, AlertTriangle, Globe } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 
 const credibilityBadges = [
@@ -58,7 +58,7 @@ export function TrustSection() {
           {credibilityBadges.map((badge) => (
             <div
               key={badge.label}
-              className="flex items-center gap-2 rounded-full border border-border/60 bg-card px-4 py-2 text-sm font-medium text-foreground shadow-sm"
+              className="flex items-center gap-2 rounded-full border border-border/60 bg-card px-4 py-2 text-sm font-medium text-foreground shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-200"
             >
               <badge.icon className="h-4 w-4 text-primary" />
               {badge.label}
@@ -96,12 +96,16 @@ export function TrustSection() {
           </div>
         </div>
 
-        {/* Optional founder note placeholder */}
-        <div className={`text-center transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '500ms' }}>
-          <blockquote className="text-lg italic text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            &ldquo;I started TrackItDown after my own car was stolen. I know how helpless it feels — and how much faster recovery could be if communities worked together.&rdquo;
-          </blockquote>
-          <p className="mt-4 text-sm font-semibold text-foreground">— The TrackItDown Team</p>
+        {/* Founder quote — styled with left accent border */}
+        <div className={`transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '500ms' }}>
+          <div className="max-w-2xl mx-auto border-l-4 border-primary/30 pl-6 sm:pl-8 py-2">
+            <blockquote className="text-lg text-muted-foreground leading-relaxed">
+              &ldquo;I started TrackItDown after my own car was stolen. I know how helpless it feels — and how much faster recovery could be if communities worked together.&rdquo;
+            </blockquote>
+            <p className="mt-4 text-sm font-semibold text-foreground">
+              — Oliver, Founder of TrackItDown
+            </p>
+          </div>
         </div>
       </div>
     </section>

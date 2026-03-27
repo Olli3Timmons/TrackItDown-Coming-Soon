@@ -36,7 +36,7 @@ export function HowItWorksSection() {
           observer.disconnect()
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     )
 
     if (sectionRef.current) {
@@ -47,7 +47,10 @@ export function HowItWorksSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="how-it-works" className="py-24 px-4 bg-card border-y border-border/50 scroll-mt-20">
+    <section ref={sectionRef} id="how-it-works" className="relative py-24 px-4 bg-card scroll-mt-20">
+      {/* Soft gradient divider — top */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+
       <div className="max-w-5xl mx-auto">
         <div className={`text-center mb-16 space-y-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground tracking-tight">
@@ -86,6 +89,9 @@ export function HowItWorksSection() {
           ))}
         </div>
       </div>
+
+      {/* Soft gradient divider — bottom */}
+      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
     </section>
   )
 }
