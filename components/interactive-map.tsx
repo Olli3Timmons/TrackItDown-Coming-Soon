@@ -12,22 +12,23 @@ const createCustomIcon = (model: string) => {
     className: 'custom-leaflet-marker', // Override default leaflet styling
     html: `
       <div style="
-        background-color: oklch(0.17 0.005 260);
-        color: white;
-        padding: 5px 12px;
+        background-color: white;
+        color: oklch(0.17 0.005 260);
+        padding: 6px 14px;
         border-radius: 24px;
         font-family: inherit;
         font-size: 13px;
         font-weight: 700;
         letter-spacing: -0.01em;
         white-space: nowrap;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.04);
+        width: max-content;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05);
         transform: translate(-50%, -50%);
-        transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+        transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1);
         cursor: pointer;
       "
-      onmouseover="this.style.transform='translate(-50%, -50%) scale(1.08)'"
-      onmouseout="this.style.transform='translate(-50%, -50%) scale(1)'"
+      onmouseover="this.style.transform='translate(-50%, -50%) scale(1.08)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05)'"
+      onmouseout="this.style.transform='translate(-50%, -50%) scale(1)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.05)'"
       >
         ${model}
       </div>
