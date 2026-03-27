@@ -1,49 +1,10 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { Input } from "@/components/ui/input"
 import { ArrowRight, ChevronDown, Clock, MapPin, Shield } from "lucide-react"
-
-function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef<HTMLSpanElement>(null)
-  const hasAnimated = useRef(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true
-          const duration = 1500
-          const startTime = performance.now()
-
-          function animate(currentTime: number) {
-            const elapsed = currentTime - startTime
-            const progress = Math.min(elapsed / duration, 1)
-            const eased = 1 - Math.pow(1 - progress, 3)
-            setCount(Math.round(eased * target))
-            if (progress < 1) {
-              requestAnimationFrame(animate)
-            }
-          }
-          requestAnimationFrame(animate)
-        }
-      },
-      { threshold: 0.5 }
-    )
-
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [target])
-
-  return (
-    <span ref={ref}>
-      {count.toLocaleString()}{suffix}
-    </span>
-  )
-}
 
 export function HeroSection() {
   const [email, setEmail] = useState("")
@@ -79,10 +40,17 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[92vh] flex items-center justify-center px-4 py-24 overflow-hidden">
-      {/* Background gradients */}
-      <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-primary/[0.04] via-transparent to-primary/[0.02]" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full bg-primary/[0.06] blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-primary/[0.04] blur-[100px] pointer-events-none" />
+      {/* Background gradients — using CSS gradients instead of blur for mobile compatibility */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: [
+            'linear-gradient(135deg, oklch(0.50 0.20 255 / 0.04), transparent, oklch(0.50 0.20 255 / 0.02))',
+            'radial-gradient(ellipse 800px 600px at 50% 0%, oklch(0.50 0.20 255 / 0.06), transparent)',
+            'radial-gradient(ellipse 400px 400px at 100% 100%, oklch(0.50 0.20 255 / 0.04), transparent)',
+          ].join(', '),
+        }}
+      />
 
       <div className="relative max-w-3xl mx-auto w-full text-center">
         <div className="space-y-8">

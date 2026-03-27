@@ -276,3 +276,27 @@
   background-size: 200% 100%;
   animation: shimmer 3s ease-in-out infinite;
 }
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up,
+  .animate-fade-in,
+  .animate-scale-in,
+  .animate-float,
+  .animate-float-slow,
+  .animate-float-delayed,
+  .animate-bounce-subtle,
+  .animate-pulse-ring,
+  .animate-shimmer {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Mobile performance: disable heavy GPU animations */
+@media (max-width: 640px) {
+  .animate-pulse-ring {
+    animation: none;
+  }
+}

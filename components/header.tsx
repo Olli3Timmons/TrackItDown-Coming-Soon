@@ -20,7 +20,7 @@ export function Header() {
       role="banner"
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "border-b border-border/50 bg-background/80 backdrop-blur-xl shadow-sm"
+          ? "border-b border-border/50 bg-background/95 backdrop-blur-md shadow-sm"
           : "bg-transparent"
       }`}
     >
