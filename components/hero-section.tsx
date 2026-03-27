@@ -87,7 +87,7 @@ export function HeroSection() {
       <div className="relative max-w-3xl mx-auto w-full text-center">
         <div className="space-y-8">
           {/* Pill badge */}
-          <div className="animate-fade-in-up opacity-0 animation-delay-100">
+          <div className="animate-fade-in-up animation-delay-100">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
@@ -98,19 +98,19 @@ export function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.1] tracking-tight text-foreground animate-fade-in-up opacity-0 animation-delay-200">
+          <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.1] tracking-tight text-foreground animate-fade-in-up animation-delay-200">
             Your community is the UK's fastest stolen vehicle recovery network
           </h1>
 
           {/* Sub-headline */}
-          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto animate-fade-in-up opacity-0 animation-delay-300">
+          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto animate-fade-in-up animation-delay-300">
             Report your stolen vehicle in 60 seconds. Thousands of local eyes help track it down — safely, and in coordination with police.
           </p>
 
           {/* Email form */}
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto animate-fade-in-up opacity-0 animation-delay-400"
+            className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto animate-fade-in-up animation-delay-400"
             aria-label="Waitlist signup"
           >
             {!isSubmitted ? (
@@ -170,12 +170,12 @@ export function HeroSection() {
           )}
 
           {/* Privacy text */}
-          <p className="text-sm text-muted-foreground/80 animate-fade-in-up opacity-0 animation-delay-500">
+          <p className="text-sm text-muted-foreground/80 animate-fade-in-up animation-delay-500">
             🔒 No spam, ever. Unsubscribe anytime. Your data stays in the UK.
           </p>
 
           {/* Value props — replacing fabricated stats */}
-          <div className="grid grid-cols-3 gap-4 max-w-md mx-auto animate-fade-in-up opacity-0 animation-delay-500">
+          <div className="grid grid-cols-3 gap-4 max-w-md mx-auto animate-fade-in-up animation-delay-500">
             <div className="flex flex-col items-center gap-1.5 rounded-xl bg-card/80 p-4 ring-1 ring-border/60">
               <Clock className="h-5 w-5 text-primary mb-0.5" />
               <p className="text-sm font-semibold text-foreground">60 Seconds</p>
@@ -200,7 +200,7 @@ export function HeroSection() {
         onClick={() => {
           document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })
         }}
-        className="absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-muted-foreground/60 hover:text-muted-foreground transition-colors animate-fade-in opacity-0 animation-delay-700 cursor-pointer"
+        className="absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-muted-foreground/60 hover:text-muted-foreground transition-colors animate-fade-in animation-delay-700 cursor-pointer"
       >
         <span className="text-xs tracking-widest uppercase">How it works</span>
         <ChevronDown className="h-4 w-4 animate-bounce-subtle" />
