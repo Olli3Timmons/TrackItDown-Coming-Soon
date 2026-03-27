@@ -61,17 +61,17 @@ export function CtaSection() {
   return (
     <section ref={sectionRef} className="relative py-24 px-4 overflow-hidden">
       {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.15),transparent_50%),radial-gradient(circle_at_70%_50%,rgba(99,102,241,0.1),transparent_50%)]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.05),transparent_50%),radial-gradient(circle_at_70%_50%,rgba(255,255,255,0.03),transparent_50%)]" />
 
       <div className="relative max-w-2xl mx-auto text-center">
         <div className="space-y-8">
           <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             Don&apos;t wait for launch day.
             <br />
-            <span className="text-blue-300">Join the waitlist today.</span>
+            <span className="text-neutral-300">Join the waitlist today.</span>
           </h2>
-          <p className={`text-lg text-blue-100/70 max-w-xl mx-auto transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '100ms' }}>
+          <p className={`text-lg text-neutral-400 max-w-xl mx-auto transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '100ms' }}>
             Join UK residents preparing to protect their communities. Get exclusive updates and be the first to use TrackItDown when we launch.
           </p>
 
@@ -83,13 +83,13 @@ export function CtaSection() {
                   placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="h-14 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-xl text-base focus-visible:border-blue-400 focus-visible:ring-blue-400/20"
+                  className="h-14 px-5 bg-white/10 border-white/20 text-white placeholder:text-white/40 rounded-xl text-base focus-visible:border-neutral-400 focus-visible:ring-neutral-400/20"
                   required
                 />
                 <Button
                   type="submit"
                   size="lg"
-                  className="h-14 px-8 bg-white text-slate-900 hover:bg-blue-50 font-semibold whitespace-nowrap rounded-xl shadow-lg shadow-white/10 transition-all duration-200 hover:-translate-y-0.5"
+                  className="h-14 px-8 bg-white text-neutral-900 hover:bg-neutral-100 font-semibold whitespace-nowrap rounded-xl shadow-lg shadow-white/10 transition-all duration-200 hover:-translate-y-0.5"
                   disabled={isLoading}
                 >
                   {isLoading ? (
@@ -124,7 +124,7 @@ export function CtaSection() {
             </div>
           )}
 
-          <p className={`text-sm text-blue-200/50 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '300ms' }}>
+          <p className={`text-sm text-neutral-500 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '300ms' }}>
             🔒 No spam, ever. Unsubscribe anytime.
           </p>
 

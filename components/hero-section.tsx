@@ -45,9 +45,9 @@ export function HeroSection() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: [
-            'linear-gradient(135deg, oklch(0.50 0.20 255 / 0.04), transparent, oklch(0.50 0.20 255 / 0.02))',
-            'radial-gradient(ellipse 800px 600px at 50% 0%, oklch(0.50 0.20 255 / 0.06), transparent)',
-            'radial-gradient(ellipse 400px 400px at 100% 100%, oklch(0.50 0.20 255 / 0.04), transparent)',
+            'linear-gradient(135deg, oklch(0.17 0.005 260 / 0.04), transparent, oklch(0.17 0.005 260 / 0.02))',
+            'radial-gradient(ellipse 800px 600px at 50% 0%, oklch(0.17 0.005 260 / 0.06), transparent)',
+            'radial-gradient(ellipse 400px 400px at 100% 100%, oklch(0.17 0.005 260 / 0.04), transparent)',
           ].join(', '),
         }}
       />
