@@ -1,23 +1,30 @@
 "use client"
 
-import { MapPin, Shield, Users } from "lucide-react"
+import { ShieldCheck, Lock, Phone, AlertTriangle, MapPin, Users, Globe } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 
-const trustPoints = [
+const credibilityBadges = [
+  { icon: Lock, label: "GDPR Compliant" },
+  { icon: ShieldCheck, label: "UK-Based Servers" },
+  { icon: Phone, label: "Police Coordinated" },
+  { icon: Globe, label: "UK-Wide Coverage" },
+]
+
+const safetyPoints = [
   {
-    icon: MapPin,
-    stat: "UK-Wide",
-    label: "Coverage across communities"
+    icon: Phone,
+    title: "Always report to police first",
+    description: "TrackItDown supplements official channels — it never replaces them."
   },
   {
-    icon: Users,
-    stat: "Community",
-    label: "Powered by local watchers"
+    icon: AlertTriangle,
+    title: "Never approach a stolen vehicle",
+    description: "Your safety is paramount. Observe and report from a safe distance."
   },
   {
-    icon: Shield,
-    stat: "Secure",
-    label: "Privacy-first design"
+    icon: Lock,
+    title: "Your identity is protected",
+    description: "Privacy-first design ensures secure, anonymous reporting."
   }
 ]
 
@@ -33,7 +40,7 @@ export function TrustSection() {
           observer.disconnect()
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     )
 
     if (sectionRef.current) {
@@ -44,36 +51,58 @@ export function TrustSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-20 px-4 bg-card border-y border-border">
-      <div className="max-w-6xl mx-auto">
-        <div className={`text-center mb-12 space-y-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h2 className="text-3xl sm:text-4xl font-semibold text-foreground">
-            Built for communities across the UK
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Designed with safety, privacy, and effectiveness in mind
-          </p>
-        </div>
-        
-        <div className="grid sm:grid-cols-3 gap-8">
-          {trustPoints.map((point, index) => (
-            <div 
-              key={point.stat} 
-              className={`text-center space-y-4 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-              style={{ transitionDelay: `${200 + index * 100}ms` }}
+    <section ref={sectionRef} className="py-24 px-4">
+      <div className="max-w-5xl mx-auto space-y-16">
+        {/* Credibility badges strip */}
+        <div className={`flex flex-wrap justify-center gap-3 sm:gap-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          {credibilityBadges.map((badge) => (
+            <div
+              key={badge.label}
+              className="flex items-center gap-2 rounded-full border border-border/60 bg-card px-4 py-2 text-sm font-medium text-foreground shadow-sm"
             >
-              <div className="w-16 h-16 rounded-2xl bg-background border border-border flex items-center justify-center mx-auto hover:border-primary/30 hover:shadow-md transition-all duration-300 group">
-                <point.icon className="h-8 w-8 text-primary group-hover:scale-110 transition-transform duration-300" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-foreground">{point.stat}</p>
-                <p className="text-muted-foreground">{point.label}</p>
-              </div>
+              <badge.icon className="h-4 w-4 text-primary" />
+              {badge.label}
             </div>
           ))}
         </div>
 
+        {/* Safety section card */}
+        <div className={`bg-card rounded-2xl border border-border/60 p-8 sm:p-10 shadow-sm transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '150ms' }}>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center">
+              <ShieldCheck className="h-5.5 w-5.5 text-primary" />
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">Safety First</h2>
+          </div>
 
+          <p className="text-muted-foreground mb-8 leading-relaxed max-w-2xl">
+            TrackItDown is built with safety at its core. We encourage responsible reporting and always prioritise personal safety over vehicle recovery.
+          </p>
+
+          <div className="grid sm:grid-cols-3 gap-6">
+            {safetyPoints.map((point, index) => (
+              <div
+                key={point.title}
+                className={`space-y-3 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                style={{ transitionDelay: `${350 + index * 100}ms` }}
+              >
+                <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center">
+                  <point.icon className="h-5 w-5 text-foreground/70" />
+                </div>
+                <h3 className="font-semibold text-foreground">{point.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{point.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Optional founder note placeholder */}
+        <div className={`text-center transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '500ms' }}>
+          <blockquote className="text-lg italic text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            &ldquo;I started TrackItDown after my own car was stolen. I know how helpless it feels — and how much faster recovery could be if communities worked together.&rdquo;
+          </blockquote>
+          <p className="mt-4 text-sm font-semibold text-foreground">— The TrackItDown Team</p>
+        </div>
       </div>
     </section>
   )

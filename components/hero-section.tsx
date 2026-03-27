@@ -1,18 +1,59 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { Input } from "@/components/ui/input"
-import { ArrowRight, MapPin, ChevronDown, Eye, TrendingUp } from "lucide-react"
+import { ArrowRight, ChevronDown, Clock, MapPin, Shield } from "lucide-react"
+
+function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
+  const [count, setCount] = useState(0)
+  const ref = useRef<HTMLSpanElement>(null)
+  const hasAnimated = useRef(false)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true
+          const duration = 1500
+          const startTime = performance.now()
+
+          function animate(currentTime: number) {
+            const elapsed = currentTime - startTime
+            const progress = Math.min(elapsed / duration, 1)
+            const eased = 1 - Math.pow(1 - progress, 3)
+            setCount(Math.round(eased * target))
+            if (progress < 1) {
+              requestAnimationFrame(animate)
+            }
+          }
+          requestAnimationFrame(animate)
+        }
+      },
+      { threshold: 0.5 }
+    )
+
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [target])
+
+  return (
+    <span ref={ref}>
+      {count.toLocaleString()}{suffix}
+    </span>
+  )
+}
 
 export function HeroSection() {
   const [email, setEmail] = useState("")
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
     if (email) {
       setIsLoading(true);
       try {
@@ -21,14 +62,15 @@ export function HeroSection() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email })
         });
-        if (res.ok) {
+        const data = await res.json();
+        if (res.ok && data.success) {
           setIsSubmitted(true);
           setEmail("");
         } else {
-          // Optionally handle error
+          setError(data.error || "Something went wrong. Please try again.");
         }
-      } catch (err) {
-        // Optionally handle error
+      } catch {
+        setError("Could not connect. Please check your internet and try again.");
       } finally {
         setIsLoading(false);
       }
@@ -36,151 +78,132 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center px-4 py-20 bg-gradient-to-br from-slate-50 via-white to-slate-100">
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_20%_20%,rgba(47,130,255,0.12),transparent_40%),radial-gradient(circle_at_80%_80%,rgba(34,197,94,0.08),transparent_45%)]" />
-      <div className="relative max-w-6xl mx-auto w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground animate-fade-in-up motion-safe:animate-none opacity-0 animation-delay-140">
-              Find stolen vehicles faster with local alert networks
-            </h1>
+    <section className="relative min-h-[92vh] flex items-center justify-center px-4 py-24 overflow-hidden">
+      {/* Background gradients */}
+      <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-primary/[0.04] via-transparent to-primary/[0.02]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] rounded-full bg-primary/[0.06] blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-primary/[0.04] blur-[100px] pointer-events-none" />
 
-            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-lg animate-fade-in-up motion-safe:animate-none opacity-0 animation-delay-200">
-              Report a stolen car, broadcast to nearby drivers, and share verified sightings in one secure platform built for UK communities and police coordination.
-            </p>
-
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row gap-3 max-w-lg animate-fade-in-up motion-safe:animate-none opacity-0 animation-delay-260"
-              aria-label="Waitlist signup"
-            >
-              {!isSubmitted ? (
-                <>
-                  <Input
-                    type="email"
-                    placeholder="Johndoe@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="h-12 w-full rounded-lg border border-border bg-white px-4 text-foreground placeholder:text-muted-foreground focus-visible:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
-                    required
-                    aria-label="Email address"
-                  />
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="h-12 whitespace-nowrap rounded-lg bg-primary text-primary-foreground hover:bg-primary/90"
-                    aria-live="polite"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? (
-                      <>
-                        <Spinner className="mr-2" />
-                        Loading...
-                      </>
-                    ) : (
-                      <>
-                        Join Waitlist
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </>
-                    )}
-                  </Button>
-                </>
-              ) : (
-                <div className="flex items-center gap-2 rounded-lg bg-green-50 px-4 py-3 text-green-800 ring-1 ring-green-200" role="status" aria-live="polite">
-                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <span className="font-medium">You're on the list! We'll be in touch soon.</span>
-                </div>
-              )}
-            </form>
-
-            <div className="grid grid-cols-3 gap-3 max-w-md text-center animate-fade-in-up motion-safe:animate-none opacity-0 animation-delay-320">
-              <div className="rounded-xl bg-white p-3 shadow-sm ring-1 ring-border">
-                <p className="text-2xl font-bold text-foreground">75%</p>
-                <p className="text-xs text-muted-foreground">Average recovery rate</p>
-              </div>
-              <div className="rounded-xl bg-white p-3 shadow-sm ring-1 ring-border">
-                <p className="text-2xl font-bold text-foreground">2m</p>
-                <p className="text-xs text-muted-foreground">Community alerts sent</p>
-              </div>
-              <div className="rounded-xl bg-white p-3 shadow-sm ring-1 ring-border">
-                <p className="text-2xl font-bold text-foreground">1,250</p>
-                <p className="text-xs text-muted-foreground">Early members</p>
-              </div>
+      <div className="relative max-w-3xl mx-auto w-full text-center">
+        <div className="space-y-8">
+          {/* Pill badge */}
+          <div className="animate-fade-in-up opacity-0 animation-delay-100">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+              </span>
+              Coming soon — Join the waitlist
             </div>
           </div>
 
-          <div className="hidden lg:block relative">
-            <div className="relative bg-white rounded-[2rem] overflow-hidden animate-fade-in-right animation-delay-320">
-              <img
-                src="/images/map-preview.jpg"
-                alt="Map showing vehicle sighting location"
-                className="h-72 w-full object-cover rounded-[2rem]"
-              />
-            </div>
+          {/* Headline */}
+          <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold leading-[1.1] tracking-tight text-foreground animate-fade-in-up opacity-0 animation-delay-200">
+            Your community is the UK's fastest stolen vehicle recovery network
+          </h1>
 
-            <div
-              className="absolute -left-6 -top-6 w-56 rounded-2xl bg-white p-4 shadow-lg floating-card border border-slate-200 animate-fade-in-up opacity-0 animation-delay-500"
-              style={{ transformStyle: 'preserve-3d' }}
-            >
-              <div className="flex items-start gap-3 mb-3">
-                <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-blue-100 flex items-center justify-center">
-                  <Eye className="w-4 h-4 text-blue-600" />
-                </div>
-                <div className="flex-1">
-                  <p className="font-semibold text-xs text-foreground">Live Sighting</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">Birmingham • 2 min ago</p>
-                </div>
-              </div>
-              <div className="flex justify-end">
-                <div className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-blue-100/50 text-blue-600 text-xs font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
-                  Live now
-                </div>
-              </div>
-            </div>
+          {/* Sub-headline */}
+          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto animate-fade-in-up opacity-0 animation-delay-300">
+            Report your stolen vehicle in 60 seconds. Thousands of local eyes help track it down — safely, and in coordination with police.
+          </p>
 
-            <div
-              className="absolute -right-6 -bottom-6 w-56 rounded-2xl bg-white p-4 shadow-lg floating-card floating-card-delay border border-slate-200 animate-fade-in-up opacity-0 animation-delay-700"
-              style={{ transformStyle: 'preserve-3d' }}
-            >
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-green-100 flex items-center justify-center">
-                  <TrendingUp className="w-4 h-4 text-green-600" />
-                </div>
-                <div className="flex-1">
-                  <p className="font-semibold text-xs text-foreground">Active Reports</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">Last 24 hours</p>
-                  <div className="mt-3 space-y-1.5 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Stolen:</span>
-                      <span className="font-bold text-foreground">47</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Sightings:</span>
-                      <span className="font-bold text-foreground">156</span>
-                    </div>
-                  </div>
-                </div>
+          {/* Email form */}
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto animate-fade-in-up opacity-0 animation-delay-400"
+            aria-label="Waitlist signup"
+          >
+            {!isSubmitted ? (
+              <>
+                <Input
+                  id="hero-email"
+                  type="email"
+                  placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="h-14 w-full rounded-xl border-2 border-border bg-white px-5 text-base text-foreground placeholder:text-muted-foreground/60 transition-all duration-200 focus-visible:border-primary focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-primary/15 focus-visible:shadow-lg focus-visible:shadow-primary/5"
+                  required
+                  aria-label="Email address"
+                />
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="h-14 whitespace-nowrap rounded-xl bg-primary px-8 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-200 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 hover:bg-primary/90 animate-pulse-ring"
+                  aria-live="polite"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <Spinner className="mr-2" />
+                      Joining...
+                    </>
+                  ) : (
+                    <>
+                      Join the Waitlist
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
+                </Button>
+              </>
+            ) : (
+              <div className="flex items-center gap-3 rounded-xl bg-emerald-50 px-5 py-4 text-emerald-800 ring-1 ring-emerald-200 w-full justify-center" role="status" aria-live="polite">
+                <svg className="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+                <span className="font-medium">You&apos;re on the list! We&apos;ll be in touch soon.</span>
               </div>
+            )}
+          </form>
+
+          {/* Error message */}
+          {error && (
+            <div className="flex items-center gap-2 rounded-xl bg-red-50 px-4 py-3 text-red-700 ring-1 ring-red-200 max-w-lg mx-auto animate-fade-in-up" role="alert">
+              <svg className="h-4 w-4 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+              <span className="text-sm font-medium">{error}</span>
+            </div>
+          )}
+
+          {/* Privacy text */}
+          <p className="text-sm text-muted-foreground/80 animate-fade-in-up opacity-0 animation-delay-500">
+            🔒 No spam, ever. Unsubscribe anytime. Your data stays in the UK.
+          </p>
+
+          {/* Value props — replacing fabricated stats */}
+          <div className="grid grid-cols-3 gap-4 max-w-md mx-auto animate-fade-in-up opacity-0 animation-delay-500">
+            <div className="flex flex-col items-center gap-1.5 rounded-xl bg-card/80 p-4 ring-1 ring-border/60">
+              <Clock className="h-5 w-5 text-primary mb-0.5" />
+              <p className="text-sm font-semibold text-foreground">60 Seconds</p>
+              <p className="text-xs text-muted-foreground leading-tight">To submit a report</p>
+            </div>
+            <div className="flex flex-col items-center gap-1.5 rounded-xl bg-card/80 p-4 ring-1 ring-border/60">
+              <MapPin className="h-5 w-5 text-primary mb-0.5" />
+              <p className="text-sm font-semibold text-foreground">UK-Wide</p>
+              <p className="text-xs text-muted-foreground leading-tight">Community coverage</p>
+            </div>
+            <div className="flex flex-col items-center gap-1.5 rounded-xl bg-card/80 p-4 ring-1 ring-border/60">
+              <Shield className="h-5 w-5 text-primary mb-0.5" />
+              <p className="text-sm font-semibold text-foreground">Police</p>
+              <p className="text-xs text-muted-foreground leading-tight">Coordinated recovery</p>
             </div>
           </div>
         </div>
       </div>
-      
-      <button 
+
+      {/* Scroll indicator */}
+      <button
         onClick={() => {
           document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })
         }}
-        className="absolute bottom-2 lg:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-0.5 lg:gap-2 text-muted-foreground hover:text-foreground transition-colors animate-fade-in opacity-0 animation-delay-500 cursor-pointer"
+        className="absolute bottom-6 lg:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-muted-foreground/60 hover:text-muted-foreground transition-colors animate-fade-in opacity-0 animation-delay-700 cursor-pointer"
       >
-        <span className="text-xs tracking-wide">Learn more</span>
-        <ChevronDown className="h-5 w-5 animate-bounce-subtle" />
+        <span className="text-xs tracking-widest uppercase">How it works</span>
+        <ChevronDown className="h-4 w-4 animate-bounce-subtle" />
       </button>
     </section>
   )

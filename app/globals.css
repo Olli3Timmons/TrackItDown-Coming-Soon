@@ -4,25 +4,25 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.97 0.005 75);
-  --foreground: oklch(0.18 0.02 45);
-  --card: oklch(0.99 0.003 75);
-  --card-foreground: oklch(0.18 0.02 45);
-  --popover: oklch(0.99 0.003 75);
-  --popover-foreground: oklch(0.18 0.02 45);
-  --primary: oklch(0.25 0.02 45);
-  --primary-foreground: oklch(0.98 0.005 75);
-  --secondary: oklch(0.93 0.008 75);
-  --secondary-foreground: oklch(0.25 0.02 45);
-  --muted: oklch(0.93 0.008 75);
-  --muted-foreground: oklch(0.50 0.015 45);
-  --accent: oklch(0.93 0.008 75);
-  --accent-foreground: oklch(0.25 0.02 45);
+  --background: oklch(0.985 0.003 250);
+  --foreground: oklch(0.13 0.02 250);
+  --card: oklch(0.993 0.002 250);
+  --card-foreground: oklch(0.13 0.02 250);
+  --popover: oklch(0.993 0.002 250);
+  --popover-foreground: oklch(0.13 0.02 250);
+  --primary: oklch(0.50 0.20 255);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.94 0.01 250);
+  --secondary-foreground: oklch(0.20 0.02 250);
+  --muted: oklch(0.94 0.008 250);
+  --muted-foreground: oklch(0.45 0.02 250);
+  --accent: oklch(0.94 0.01 250);
+  --accent-foreground: oklch(0.20 0.02 250);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.88 0.01 75);
-  --input: oklch(0.88 0.01 75);
-  --ring: oklch(0.50 0.015 45);
+  --border: oklch(0.90 0.008 250);
+  --input: oklch(0.90 0.008 250);
+  --ring: oklch(0.50 0.20 255);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -202,12 +202,24 @@
   animation-delay: 100ms;
 }
 
+.animation-delay-140 {
+  animation-delay: 140ms;
+}
+
 .animation-delay-200 {
   animation-delay: 200ms;
 }
 
+.animation-delay-260 {
+  animation-delay: 260ms;
+}
+
 .animation-delay-300 {
   animation-delay: 300ms;
+}
+
+.animation-delay-320 {
+  animation-delay: 320ms;
 }
 
 .animation-delay-400 {
@@ -216,6 +228,10 @@
 
 .animation-delay-500 {
   animation-delay: 500ms;
+}
+
+.animation-delay-700 {
+  animation-delay: 700ms;
 }
 
 @keyframes bounce-subtle {
@@ -229,4 +245,34 @@
 
 .animate-bounce-subtle {
   animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 oklch(0.50 0.20 255 / 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px oklch(0.50 0.20 255 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.50 0.20 255 / 0);
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
 }
