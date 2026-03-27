@@ -70,6 +70,9 @@ export default function InteractiveMap({ className = "w-full min-h-[450px]" }: {
         zoom={6} 
         scrollWheelZoom={false}
         zoomControl={false}
+        dragging={false}
+        doubleClickZoom={false}
+        touchZoom={false}
         className="w-full h-full z-0"
         attributionControl={false}
       >
