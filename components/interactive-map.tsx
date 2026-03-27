@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet"
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 
@@ -82,15 +82,7 @@ export default function InteractiveMap({ className = "w-full min-h-[450px]" }: {
             key={sighting.id} 
             position={sighting.pos}
             icon={createCustomIcon(sighting.model)}
-          >
-            <Popup className="rounded-xl overflow-hidden shadow-xl border-0">
-              <div className="p-1 min-w-[140px]">
-                <p className="text-xs font-semibold text-primary mb-1 uppercase tracking-wider">{sighting.status}</p>
-                <p className="text-sm font-bold text-foreground mb-0.5">{sighting.model}</p>
-                <p className="text-xs text-muted-foreground">{sighting.time}</p>
-              </div>
-            </Popup>
-          </Marker>
+          />
         ))}
         
         {/* Helper to center/pad the map slightly better on mobile */}
