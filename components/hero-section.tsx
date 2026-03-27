@@ -74,16 +74,7 @@ export function HeroSection() {
           </div>
 
           <div className="space-y-4">
-            {/* Pill badge */}
-            <div className="animate-fade-in-up animation-delay-140">
-              <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
-                </span>
-                Coming soon — Join the waitlist
-              </div>
-            </div>
+
 
             {/* Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-foreground animate-fade-in-up animation-delay-200">
