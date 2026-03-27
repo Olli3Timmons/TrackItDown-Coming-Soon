@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Trackback Logo Mark - Radar
+  A radar sweep icon suggesting discovery/tracking
+  Designed to work at all sizes from favicon (16px) to App Store (1024px)
+
+  Brand Color: #000000 (Black)
+  Base geometry: 24x24 viewBox scaled by 42.67
+  Stroke Weight: 2px (at base scale)
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- Radar Mark -->
+  <g transform="scale(42.67)" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="12" y1="12" x2="16.24" y2="5.76"/>
+    <path d="M 12 8 A 4 4 0 0 1 16 12"/>
+    <path d="M 12 5 A 7 7 0 0 1 19 12"/>
+    <circle cx="12" cy="12" r="1" fill="#000000" stroke="none"/>
+  </g>
+</svg>

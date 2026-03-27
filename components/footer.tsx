@@ -7,11 +7,11 @@ export function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Image
-              src="/images/logo.jpg"
+              src="/images/logo-mark.svg"
               alt="TrackItDown logo"
               width={28}
               height={28}
-              className="rounded-lg object-cover shadow-sm shadow-primary/20"
+              className="object-contain"
             />
             <span className="text-sm font-semibold text-foreground">TrackItDown</span>
           </div>

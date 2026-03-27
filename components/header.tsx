@@ -32,11 +32,11 @@ export function Header() {
           className="flex items-center gap-2.5 text-foreground"
         >
           <Image
-            src="/images/logo.jpg"
+            src="/images/logo-mark.svg"
             alt="TrackItDown logo"
             width={36}
             height={36}
-            className="rounded-xl object-cover shadow-md shadow-primary/20"
+            className="object-contain"
           />
           <span className="text-lg font-bold tracking-tight">TrackItDown</span>
         </Link>
