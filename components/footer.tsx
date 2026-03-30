@@ -16,9 +16,7 @@ export function Footer() {
             <span className="text-sm font-semibold text-foreground">TrackItDown</span>
           </div>
 
-          <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="mailto:hello@trackitdown.co.uk" className="hover:text-foreground transition-colors">Contact</a>
-          </div>
+
 
           <p className="text-xs text-muted-foreground/70">
             © 2026 TrackItDown. All rights reserved.
