@@ -50,7 +50,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center px-4 py-20 lg:py-0 overflow-hidden">
+    <section className="relative min-h-[92vh] flex items-center justify-center px-4 pt-20 pb-32 lg:pt-12 lg:pb-24 overflow-hidden">
       {/* Background gradients */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -62,22 +62,17 @@ export function HeroSection() {
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center pt-8">
+      <div className="relative max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-8 items-center pt-8">
         
         {/* Left Column: Content */}
         <div className="space-y-6 sm:space-y-8 text-left max-w-2xl mx-auto lg:mx-0 w-full">
-          {/* Stat banner — social proof */}
-          <div className="animate-fade-in-up animation-delay-100">
-            <p className="text-sm border border-border/60 bg-background/50 backdrop-blur-sm rounded-full px-4 py-1.5 inline-flex text-muted-foreground tracking-wide shadow-sm">
-              Over <span className="font-semibold text-foreground mx-1">129,159</span> vehicles were stolen in the UK last year (ONS)
-            </p>
-          </div>
+
 
           <div className="space-y-4">
 
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight text-foreground animate-fade-in-up animation-delay-200">
+            <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-extrabold leading-[1.05] tracking-tight text-foreground animate-fade-in-up animation-delay-200">
               Your community is the fastest recovery network
             </h1>
 
@@ -201,7 +196,7 @@ export function HeroSection() {
         </div>
 
         {/* Right Column: Interactive Map */}
-        <div className="relative w-full aspect-square sm:aspect-[4/3] lg:aspect-auto lg:h-[600px] w-full rounded-[2rem] overflow-hidden shadow-2xl border border-border/60 animate-fade-in-up animation-delay-700 bg-card group">
+        <div className="hidden lg:block relative w-full aspect-square sm:aspect-[4/3] lg:aspect-auto lg:h-[500px] xl:h-[600px] rounded-[2rem] overflow-hidden shadow-2xl border border-border/60 animate-fade-in-up animation-delay-700 bg-card group">
           <MapPreview className="w-full h-full" />
           {/* Edge glow overlay */}
           <div className="absolute inset-0 rounded-[2rem] ring-1 ring-inset ring-white/10 pointer-events-none z-[400]" />
@@ -216,7 +211,7 @@ export function HeroSection() {
         onClick={() => {
           document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })
         }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-muted-foreground/60 hover:text-muted-foreground transition-colors animate-fade-in animation-delay-700 cursor-pointer hidden lg:flex"
+        className="absolute bottom-6 lg:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-muted-foreground/60 hover:text-muted-foreground transition-colors animate-fade-in animation-delay-700 cursor-pointer"
       >
         <span className="text-xs tracking-widest uppercase">How it works</span>
         <ChevronDown className="h-4 w-4 animate-bounce-subtle" />
