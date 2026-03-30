@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { Input } from "@/components/ui/input"
-import { ArrowRight, ChevronDown, Clock, MapPin, Shield } from "lucide-react"
+import { ArrowRight, ChevronDown, Clock, MapPin, Users } from "lucide-react"
 
 import dynamic from "next/dynamic"
 
@@ -78,7 +78,7 @@ export function HeroSection() {
 
             {/* Sub-headline */}
             <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed animate-fade-in-up animation-delay-300">
-              Report your stolen vehicle in 60 seconds. Thousands of local eyes help track it down — safely, and in coordination with police.
+              Report your stolen vehicle in 60 seconds. Thousands of local eyes help track it down — safely and anonymously.
             </p>
           </div>
 
@@ -185,11 +185,11 @@ export function HeroSection() {
 
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                <Shield className="h-5 w-5 text-primary" />
+                <Users className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-foreground">Police</p>
-                <p className="text-xs text-muted-foreground leading-tight">Coordinated</p>
+                <p className="text-sm font-semibold text-foreground">Community</p>
+                <p className="text-xs text-muted-foreground leading-tight">Powered</p>
               </div>
             </div>
           </div>
