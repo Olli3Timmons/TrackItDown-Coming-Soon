@@ -300,3 +300,490 @@
     animation: none;
   }
 }
+
+/* ================================================================== */
+/*  Interactive Map Demo — Animation System                            */
+/* ================================================================== */
+:root {
+  --demo-red: #ef4444;
+  --demo-blue: #3b82f6;
+  --demo-amber: #f59e0b;
+  --demo-green: #22c55e;
+}
+
+/* ---- Stolen marker ---- */
+.map-demo-stolen-pin {
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+.map-demo-stolen-dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: var(--demo-red);
+  border: 3px solid white;
+  border-radius: 50%;
+  top: -8px;
+  left: -8px;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.5);
+  animation: demo-scale-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  z-index: 2;
+}
+
+.map-demo-stolen-ripple {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: -8px;
+  left: -8px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid var(--demo-red);
+  animation: demo-ripple 2s ease-out infinite;
+  z-index: 1;
+}
+
+.map-demo-stolen-ripple-2 {
+  animation-delay: 0.7s;
+}
+
+@keyframes demo-ripple {
+  0% {
+    width: 16px;
+    height: 16px;
+    top: -8px;
+    left: -8px;
+    opacity: 0.7;
+  }
+  100% {
+    width: 80px;
+    height: 80px;
+    top: -40px;
+    left: -40px;
+    opacity: 0;
+  }
+}
+
+@keyframes demo-scale-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---- Community eye markers ---- */
+.map-demo-eye {
+  position: absolute;
+  top: -14px;
+  left: -14px;
+  width: 28px;
+  height: 28px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--demo-blue);
+  box-shadow: 0 2px 10px rgba(59, 130, 246, 0.25), 0 0 0 2px rgba(59, 130, 246, 0.15);
+  animation: demo-eye-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes demo-eye-pop {
+  0% {
+    transform: scale(0) rotate(-20deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* ---- Sighting beacon (upgraded) ---- */
+.map-demo-sighting-beacon {
+  position: relative;
+  width: 0;
+  height: 0;
+  animation: demo-beacon-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.map-demo-sighting-core {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  top: -18px;
+  left: -18px;
+  background: var(--demo-amber);
+  border: 3px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow:
+    0 4px 16px rgba(245, 158, 11, 0.5),
+    0 0 24px rgba(245, 158, 11, 0.2);
+  z-index: 3;
+}
+
+.map-demo-sighting-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--demo-amber);
+  z-index: 1;
+  animation: demo-sighting-expand 2s ease-out infinite;
+}
+
+.map-demo-sighting-ring-1 {
+  width: 36px;
+  height: 36px;
+  top: -18px;
+  left: -18px;
+  animation-delay: 0s;
+}
+
+.map-demo-sighting-ring-2 {
+  width: 36px;
+  height: 36px;
+  top: -18px;
+  left: -18px;
+  animation-delay: 0.5s;
+}
+
+.map-demo-sighting-ring-3 {
+  width: 36px;
+  height: 36px;
+  top: -18px;
+  left: -18px;
+  animation-delay: 1s;
+}
+
+.map-demo-sighting-label {
+  position: absolute;
+  top: -44px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--demo-amber);
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+  animation: demo-label-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both;
+  z-index: 4;
+}
+
+@keyframes demo-beacon-in {
+  0% {
+    transform: scale(0) translateY(-20px);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1) translateY(2px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes demo-sighting-expand {
+  0% {
+    width: 36px;
+    height: 36px;
+    top: -18px;
+    left: -18px;
+    opacity: 0.6;
+  }
+  100% {
+    width: 90px;
+    height: 90px;
+    top: -45px;
+    left: -45px;
+    opacity: 0;
+  }
+}
+
+@keyframes demo-label-pop {
+  0% {
+    transform: translateX(-50%) scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---- Spotter eye (highlighted) ---- */
+.map-demo-eye-spotter {
+  color: var(--demo-amber) !important;
+  box-shadow:
+    0 2px 10px rgba(245, 158, 11, 0.4),
+    0 0 0 3px rgba(245, 158, 11, 0.2) !important;
+  transform: scale(1.15);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.map-demo-spotter-ring {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  top: -3px;
+  left: -3px;
+  border-radius: 50%;
+  border: 2px solid var(--demo-amber);
+  animation: demo-spotter-pulse 1.5s ease-out infinite;
+  z-index: -1;
+}
+
+@keyframes demo-spotter-pulse {
+  0% {
+    width: 28px;
+    height: 28px;
+    top: -3px;
+    left: -3px;
+    opacity: 0.5;
+  }
+  100% {
+    width: 50px;
+    height: 50px;
+    top: -14px;
+    left: -14px;
+    opacity: 0;
+  }
+}
+
+/* ---- Dimmed eyes (non-spotter during sighting) ---- */
+.map-demo-eye-dim {
+  opacity: 0.3 !important;
+  transform: scale(0.85);
+  transition: all 0.4s ease;
+}
+
+/* ---- Recovered marker ---- */
+.map-demo-recovered-pin {
+  position: absolute;
+  top: -18px;
+  left: -18px;
+  width: 36px;
+  height: 36px;
+  background: var(--demo-green);
+  border: 3px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.45);
+  animation: demo-scale-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  z-index: 2;
+}
+
+.map-demo-recovered-ring {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  top: -3px;
+  left: -3px;
+  border-radius: 50%;
+  border: 2px solid var(--demo-green);
+  animation: demo-recovered-expand 1s ease-out both;
+  z-index: 1;
+}
+
+@keyframes demo-recovered-expand {
+  0% {
+    width: 36px;
+    height: 36px;
+    top: -3px;
+    left: -3px;
+    opacity: 0.6;
+  }
+  100% {
+    width: 70px;
+    height: 70px;
+    top: -20px;
+    left: -20px;
+    opacity: 0;
+  }
+}
+
+/* ---- Toast notification overlay ---- */
+.map-demo-overlay {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 450;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+.map-demo-toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border-radius: 14px;
+  padding: 10px 18px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.04);
+  animation: demo-toast-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  border-left: 3px solid var(--toast-accent, #888);
+  max-width: 360px;
+  width: 100%;
+}
+
+@keyframes demo-toast-in {
+  0% {
+    transform: translateY(-16px) scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.map-demo-toast-icon {
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.map-demo-toast-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.map-demo-toast-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: oklch(0.17 0.005 260);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.map-demo-toast-sub {
+  font-size: 11px;
+  font-weight: 500;
+  color: oklch(0.45 0.02 250);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---- Progress bar ---- */
+.map-demo-progress {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 450;
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 12px;
+  padding: 8px 16px;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.04);
+  gap: 0;
+  animation: demo-fade-in 0.3s ease both;
+  pointer-events: none;
+}
+
+@keyframes demo-fade-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.map-demo-progress-step {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+}
+
+.map-demo-progress-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: oklch(0.94 0.008 250);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: oklch(0.55 0.02 250);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
+}
+
+.map-demo-progress-step.active .map-demo-progress-dot {
+  background: oklch(0.17 0.005 260);
+  color: white;
+}
+
+.map-demo-progress-step.current .map-demo-progress-dot {
+  box-shadow: 0 0 0 3px oklch(0.17 0.005 260 / 0.15);
+}
+
+.map-demo-progress-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: oklch(0.55 0.02 250);
+  margin-right: 4px;
+  transition: color 0.3s;
+}
+
+.map-demo-progress-step.active .map-demo-progress-label {
+  color: oklch(0.17 0.005 260);
+}
+
+.map-demo-progress-line {
+  width: 20px;
+  height: 2px;
+  background: oklch(0.90 0.008 250);
+  margin: 0 4px;
+  border-radius: 1px;
+  transition: background 0.3s;
+}
+
+.map-demo-progress-line.filled {
+  background: oklch(0.17 0.005 260);
+}
+
+/* ---- Leaflet overrides for demo markers ---- */
+.stolen-marker,
+.eye-marker,
+.sighting-marker,
+.recovered-marker {
+  background: transparent !important;
+  border: none !important;
+  overflow: visible !important;
+}
+
+.sighting-marker {
+  z-index: 600 !important;
+}
+
+.recovered-marker {
+  z-index: 650 !important;
+}
