@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { Input } from "@/components/ui/input"
 import { ArrowRight, ChevronDown, Clock, MapPin, Users } from "lucide-react"
+import { MobileRecoveryFlow } from "@/components/mobile-recovery-flow"
 
 import dynamic from "next/dynamic"
 
@@ -157,41 +158,65 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Value props - stacked neatly */}
-          <div className="flex flex-col sm:flex-row gap-4 pt-6 mt-4 border-t border-border/40 max-w-lg animate-fade-in-up animation-delay-500">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                <Clock className="h-5 w-5 text-primary" />
+          {/* Value props — compact pills on mobile, expanded on sm+ */}
+          <div className="pt-6 mt-6 border-t border-border/40 max-w-lg animate-fade-in-up animation-delay-500">
+            {/* Mobile: compact horizontal pills */}
+            <div className="flex sm:hidden items-center gap-2 flex-wrap">
+              <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card px-3 py-1.5 text-xs font-medium text-foreground shadow-sm">
+                <Clock className="h-3.5 w-3.5 text-primary" />
+                60s to report
               </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">60 Seconds</p>
-                <p className="text-xs text-muted-foreground leading-tight">To report</p>
+              <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card px-3 py-1.5 text-xs font-medium text-foreground shadow-sm">
+                <MapPin className="h-3.5 w-3.5 text-primary" />
+                UK-Wide
               </div>
-            </div>
-            
-            <div className="hidden sm:block w-px h-10 bg-border/60"></div>
-
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                <MapPin className="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">UK-Wide</p>
-                <p className="text-xs text-muted-foreground leading-tight">Coverage</p>
+              <div className="flex items-center gap-1.5 rounded-full border border-border/60 bg-card px-3 py-1.5 text-xs font-medium text-foreground shadow-sm">
+                <Users className="h-3.5 w-3.5 text-primary" />
+                Community
               </div>
             </div>
 
-            <div className="hidden sm:block w-px h-10 bg-border/60"></div>
-
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                <Users className="h-5 w-5 text-primary" />
+            {/* sm+: expanded layout with icons & descriptions */}
+            <div className="hidden sm:flex flex-row gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <Clock className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">60 Seconds</p>
+                  <p className="text-xs text-muted-foreground leading-tight">To report</p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">Community</p>
-                <p className="text-xs text-muted-foreground leading-tight">Powered</p>
+              
+              <div className="w-px h-10 bg-border/60"></div>
+
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <MapPin className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">UK-Wide</p>
+                  <p className="text-xs text-muted-foreground leading-tight">Coverage</p>
+                </div>
+              </div>
+
+              <div className="w-px h-10 bg-border/60"></div>
+
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <Users className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">Community</p>
+                  <p className="text-xs text-muted-foreground leading-tight">Powered</p>
+                </div>
               </div>
             </div>
+          </div>
+
+          {/* Mobile recovery flow graphic — visible below lg only */}
+          <div className="block lg:hidden mt-8">
+            <MobileRecoveryFlow />
           </div>
         </div>
 
