@@ -13,11 +13,11 @@ export function StoreBadges({ className }: { className?: string }) {
       {stores.map(({ icon: Icon, label }) => (
         <li
           key={label}
-          className="flex h-14 items-center gap-3 rounded-xl bg-neutral-950 px-5 text-white shadow-lg ring-1 ring-white/15"
+          className="flex h-14 items-center gap-3 rounded-xl bg-white px-5 text-neutral-950 shadow-lg shadow-black/40"
         >
           <Icon className="h-6 w-6 shrink-0" aria-hidden="true" />
           <span className="flex flex-col leading-tight text-left">
-            <span className="text-[11px] uppercase tracking-wide text-white/60">Coming soon to</span>
+            <span className="text-[11px] uppercase tracking-wide text-neutral-500">Coming soon to</span>
             <span className="text-base font-semibold">{label}</span>
           </span>
         </li>

@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 
 export function Footer() {
   return (
@@ -16,10 +17,13 @@ export function Footer() {
             <span className="text-sm font-semibold text-foreground">TrackItDown</span>
           </div>
 
+          <nav aria-label="Footer" className="flex gap-6 text-sm text-muted-foreground">
+            <Link href="/privacy" className="hover:text-foreground">Privacy</Link>
+            <a href="mailto:trackitdowwnn@gmail.com" className="hover:text-foreground">Contact</a>
+          </nav>
 
-
-          <p className="text-xs text-muted-foreground/70">
-            © 2026 TrackItDown. All rights reserved.
+          <p className="text-center text-xs text-muted-foreground sm:text-right">
+            © 2026 Trackitdown Ltd. Registered in England &amp; Wales, company no. 17532660.
           </p>
         </div>
       </div>

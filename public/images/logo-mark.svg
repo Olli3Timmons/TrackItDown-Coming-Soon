@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="205 173 640 640" width="640" height="640">
   <!-- TrackItDown mark: the app icon's "T" and dot, transparent and cropped to the shape -->
-  <rect x="237" y="218" width="550" height="166" rx="83" fill="#000000"/>
-  <rect x="429" y="218" width="166" height="550" rx="83" fill="#000000"/>
-  <circle cx="736" cy="691" r="77" fill="#000000"/>
+  <rect x="237" y="218" width="550" height="166" rx="83" fill="#FFFFFF"/>
+  <rect x="429" y="218" width="166" height="550" rx="83" fill="#FFFFFF"/>
+  <circle cx="736" cy="691" r="77" fill="#FFFFFF"/>
 </svg>

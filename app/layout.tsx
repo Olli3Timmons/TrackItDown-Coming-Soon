@@ -44,7 +44,7 @@ export default function RootLayout({
       <body className={`${nunitoSans.variable} font-sans antialiased`}>
         <a
           href="#main-content"
-          className="skip-link absolute left-2 top-2 z-50 rounded border border-primary bg-primary/90 p-2 text-sm font-medium text-white opacity-0 transition-all duration-150 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary"
+          className="skip-link absolute left-2 top-2 z-50 rounded border border-primary bg-primary/90 p-2 text-sm font-medium text-primary-foreground opacity-0 transition-all duration-150 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary"
         >
           Skip to main content
         </a>

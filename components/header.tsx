@@ -19,13 +19,13 @@ export function Header() {
   return (
     <header
       role="banner"
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      className={`sticky top-0 z-50 w-full px-4 transition-all duration-300 ${
         scrolled
           ? "border-b border-border/50 bg-background/95 backdrop-blur-md shadow-sm"
           : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between py-3">
         <Link
           href="/"
           aria-label="TrackItDown home"
@@ -41,17 +41,17 @@ export function Header() {
           <span className="text-lg font-bold tracking-tight">TrackItDown</span>
         </Link>
 
-        <button
-          onClick={() => {
-            document.getElementById("download")?.scrollIntoView({ behavior: "smooth" })
-          }}
+        <Link
+          href="/#download"
+          tabIndex={scrolled ? 0 : -1}
+          aria-hidden={!scrolled}
           className={`hidden sm:inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 ${
             scrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
           }`}
         >
           Get the App
           <ArrowRight className="h-3.5 w-3.5" />
-        </button>
+        </Link>
       </div>
     </header>
   )

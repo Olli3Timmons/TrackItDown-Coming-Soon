@@ -26,7 +26,7 @@ export function CtaSection() {
   }, [])
 
   return (
-    <section id="download" ref={sectionRef} className="relative py-24 px-4 overflow-hidden scroll-mt-16">
+    <section id="download" ref={sectionRef} className="relative py-24 px-4 overflow-hidden scroll-mt-16 border-t border-border">
       {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.05),transparent_50%),radial-gradient(circle_at_70%_50%,rgba(255,255,255,0.03),transparent_50%)]" />

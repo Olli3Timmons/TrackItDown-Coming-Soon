@@ -12,7 +12,7 @@ const safetyPoints = [
   {
     icon: AlertTriangle,
     title: "Never approach a stolen vehicle",
-    description: "Your safety is paramount. Observe and report from a safe distance."
+    description: "Rewards are for information only. Observe and report from a safe distance, and never confront anyone."
   },
   {
     icon: Lock,

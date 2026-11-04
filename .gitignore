@@ -17,3 +17,6 @@ node_modules
 # Raw app screenshots (may contain personal data) and TypeScript build cache
 assets-incoming/
 *.tsbuildinfo
+# Placeholder app screenshots contain test data (names, location, rewards).
+# Delete this line once the demo-account screenshots replace them.
+public/images/app/
