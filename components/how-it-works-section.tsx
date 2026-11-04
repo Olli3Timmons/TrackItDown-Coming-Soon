@@ -2,6 +2,7 @@
 
 import { FileText, Eye, CheckCircle, ArrowRight } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
+import { useReducedMotion } from "framer-motion"
 
 const steps = [
   {
@@ -26,19 +27,19 @@ const steps = [
     accentShadow: "group-hover:shadow-blue-500/10",
     iconAccent: "text-blue-500",
     badgeAccent: "bg-blue-500",
-    detail: "👁️ Local eyes · 📡 Instant alerts · 🤝 Anonymous",
+    detail: "👁️ Local eyes · 📡 Instant alerts · 🤝 Anonymous option",
   },
   {
     number: "03",
     icon: CheckCircle,
     title: "Track & recover",
-    description: "Real-time sightings feed into a live map. Work with police to recover your vehicle.",
+    description: "Sightings appear on a live map. Share them with the police to help them recover it.",
     accent: "from-emerald-500/20 to-emerald-500/5",
     accentBorder: "group-hover:border-emerald-500/30",
     accentShadow: "group-hover:shadow-emerald-500/10",
     iconAccent: "text-emerald-500",
     badgeAccent: "bg-emerald-500",
-    detail: "🗺️ Live map · 🚔 Police link · ✅ Recovery",
+    detail: "🗺️ Live map · 🚔 Share with police · ✅ Recovery",
   },
 ]
 
@@ -46,6 +47,7 @@ export function HowItWorksSection() {
   const [isVisible, setIsVisible] = useState(false)
   const [lineProgress, setLineProgress] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
+  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -68,6 +70,7 @@ export function HowItWorksSection() {
   /* Animate the connecting line progressively */
   useEffect(() => {
     if (!isVisible) return
+    if (reduceMotion) { setLineProgress(1); return }
     const start = performance.now()
     const duration = 1200
     const delay = 500
@@ -85,7 +88,7 @@ export function HowItWorksSection() {
       if (progress < 1) requestAnimationFrame(animate)
     }
     requestAnimationFrame(animate)
-  }, [isVisible])
+  }, [isVisible, reduceMotion])
 
   return (
     <section ref={sectionRef} id="how-it-works" className="relative py-24 px-4 bg-card scroll-mt-20">
@@ -98,7 +101,7 @@ export function HowItWorksSection() {
             How TrackItDown works
           </h2>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            Three simple steps to maximise your vehicle recovery chances.
+            From stolen to spotted, in three steps.
           </p>
         </div>
 

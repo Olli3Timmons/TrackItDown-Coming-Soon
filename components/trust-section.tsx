@@ -1,20 +1,13 @@
 "use client"
 
-import { ShieldCheck, Lock, Phone, AlertTriangle, Globe } from "lucide-react"
+import { ShieldCheck, Lock, Phone, AlertTriangle } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
-
-const credibilityBadges = [
-  { icon: Lock, label: "GDPR Compliant" },
-  { icon: ShieldCheck, label: "UK-Based Servers" },
-  { icon: Phone, label: "Police Coordinated" },
-  { icon: Globe, label: "UK-Wide Coverage" },
-]
 
 const safetyPoints = [
   {
     icon: Phone,
-    title: "Always report to police first",
-    description: "TrackItDown supplements official channels — it never replaces them."
+    title: "Always report to the police first",
+    description: "TrackItDown is independent and not affiliated with any police force. If a crime is happening, call 999."
   },
   {
     icon: AlertTriangle,
@@ -23,8 +16,8 @@ const safetyPoints = [
   },
   {
     icon: Lock,
-    title: "Your identity is protected",
-    description: "Privacy-first design ensures secure, anonymous reporting."
+    title: "Report sightings anonymously",
+    description: "Turn on anonymous mode in settings and owners see the sighting, not who sent it."
   }
 ]
 
@@ -53,19 +46,6 @@ export function TrustSection() {
   return (
     <section ref={sectionRef} className="py-24 px-4">
       <div className="max-w-5xl mx-auto space-y-16">
-        {/* Credibility badges strip */}
-        <div className={`flex flex-wrap justify-center gap-3 sm:gap-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          {credibilityBadges.map((badge) => (
-            <div
-              key={badge.label}
-              className="flex items-center gap-2 rounded-full border border-border/60 bg-card px-4 py-2 text-sm font-medium text-foreground shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-200"
-            >
-              <badge.icon className="h-4 w-4 text-primary" />
-              {badge.label}
-            </div>
-          ))}
-        </div>
-
         {/* Safety section card */}
         <div className={`bg-card rounded-2xl border border-border/60 p-8 sm:p-10 shadow-sm transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '150ms' }}>
           <div className="flex items-center gap-3 mb-6">

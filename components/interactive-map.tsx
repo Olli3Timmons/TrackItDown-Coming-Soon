@@ -1,8 +1,9 @@
 "use client"
 
 import { useEffect, useState, useCallback, useRef, memo, useMemo } from "react"
-import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet"
+import { MapContainer, TileLayer, Marker, AttributionControl, useMap } from "react-leaflet"
 import L from "leaflet"
+import { useReducedMotion } from "framer-motion"
 import "leaflet/dist/leaflet.css"
 
 /* ------------------------------------------------------------------ */
@@ -41,7 +42,7 @@ const SCENARIOS: Scenario[] = [
     stolenPos: [51.51, -0.12],
     stolenModel: "Range Rover Sport",
     stolenColor: "Black",
-    stolenReg: "AB12 CDE",
+    stolenReg: "AB12 QIZ", // I/Q/Z never appear in a real plate's last three letters, so demo plates can't match a real car
     communityEyes: [
       { pos: [51.55, 0.06], delay: 0 },
       { pos: [51.58, -0.25], delay: 180 },
@@ -71,7 +72,7 @@ const SCENARIOS: Scenario[] = [
     stolenPos: [52.48, -1.90],
     stolenModel: "Mercedes C-Class",
     stolenColor: "White",
-    stolenReg: "KL19 MNO",
+    stolenReg: "KL19 MIQ",
     communityEyes: [
       { pos: [52.55, -1.70], delay: 0 },
       { pos: [52.45, -2.05], delay: 180 },
@@ -200,7 +201,7 @@ const StageOverlay = memo(function StageOverlay({ stage, scenario }: { stage: St
     alert: {
       icon: "📡",
       label: "Alert sent to nearby community",
-      sub: "Thousands of local eyes activated",
+      sub: "Nearby members alerted",
       color: "var(--demo-blue)",
     },
     sightings: {
@@ -292,6 +293,7 @@ export default function InteractiveMap({ className = "w-full min-h-[450px]" }: {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const eyeTimersRef = useRef<ReturnType<typeof setTimeout>[]>([])
   const isFirstRun = useRef(true)
+  const reduceMotion = useReducedMotion()
 
   const scenario = SCENARIOS[scenarioIdx]
 
@@ -348,6 +350,12 @@ export default function InteractiveMap({ className = "w-full min-h-[450px]" }: {
 
   useEffect(() => {
     if (!mounted) return
+    // Reduced motion: show one static frame (vehicle, community, sighting) instead of looping
+    if (reduceMotion) {
+      setStage("sightings")
+      setVisibleEyes(scenario.communityEyes.map((_, i) => i))
+      return
+    }
     // Only delay on first mount; subsequent loops start instantly
     const delay = isFirstRun.current ? 600 : 0
     isFirstRun.current = false
@@ -357,7 +365,8 @@ export default function InteractiveMap({ className = "w-full min-h-[450px]" }: {
       if (timerRef.current) clearTimeout(timerRef.current)
       clearEyeTimers()
     }
-  }, [mounted, runSequence, clearEyeTimers])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mounted, runSequence, clearEyeTimers, reduceMotion])
 
   if (!mounted) {
     return (
@@ -383,17 +392,20 @@ export default function InteractiveMap({ className = "w-full min-h-[450px]" }: {
         dragging={false}
         doubleClickZoom={false}
         touchZoom={false}
-        className="w-full h-full z-0"
+        className="map-demo-tiles w-full h-full z-0"
         attributionControl={false}
+        keyboard={false}
       >
+        {/* shortcut: OSM's free tiles allow light use only — swap for app screenshots or a keyed provider before heavy traffic */}
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
+        <AttributionControl position="bottomright" prefix={false} />
 
         {/* Stolen vehicle marker — uses stable icon ref, no re-create */}
         {showStolenMarker && (
-          <Marker position={scenario.stolenPos} icon={STOLEN_ICON} />
+          <Marker keyboard={false} interactive={false} position={scenario.stolenPos} icon={STOLEN_ICON} />
         )}
 
         {/* Community eyes — hide spotter during sighting (beacon replaces it) */}
@@ -407,19 +419,19 @@ export default function InteractiveMap({ className = "w-full min-h-[450px]" }: {
               const isDim = showSighting && !isSpotter
               const icon = isDim ? EYE_ICONS_DIM[idx] : EYE_ICONS[idx]
               return (
-                <Marker key={`eye-${scenarioIdx}-${idx}`} position={eye.pos} icon={icon} />
+                <Marker key={`eye-${scenarioIdx}-${idx}`} keyboard={false} interactive={false} position={eye.pos} icon={icon} />
               )
             }
           )}
 
         {/* Sighting marker — upgraded beacon */}
         {showSighting && (
-          <Marker position={scenario.sightingPos} icon={SIGHTING_ICON} />
+          <Marker keyboard={false} interactive={false} position={scenario.sightingPos} icon={SIGHTING_ICON} />
         )}
 
         {/* Recovered marker */}
         {showRecovered && (
-          <Marker position={scenario.stolenPos} icon={RECOVERED_ICON} />
+          <Marker keyboard={false} interactive={false} position={scenario.stolenPos} icon={RECOVERED_ICON} />
         )}
 
         <MapBoundsManager />

@@ -25,37 +25,12 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://trackitdown.co.uk',
     siteName: 'TrackItDown',
-    images: [
-      {
-        url: 'https://trackitdown.co.uk/images/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'TrackItDown — Stolen Vehicle Reports',
-      },
-    ],
   },
+  // Preview image, favicon and Apple icon come from app/opengraph-image.tsx, app/icon.svg and app/apple-icon.png
   twitter: {
     card: 'summary_large_image',
     title: 'TrackItDown — Report & Find Stolen Vehicles',
     description: 'Report stolen vehicles, crowdsourced sightings, and safer recoveries with local communities.',
-    images: ['https://trackitdown.co.uk/images/og-image.png'],
-  },
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
   },
 }
 

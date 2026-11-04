@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
+import { useReducedMotion } from "framer-motion"
 import { FileWarning, Radio, Eye, CheckCircle } from "lucide-react"
 
 const stages = [
@@ -20,7 +21,7 @@ const stages = [
     color: "rgb(59, 130, 246)",    // blue-500
     bgColor: "rgba(59, 130, 246, 0.12)",
     ringColor: "rgba(59, 130, 246, 0.25)",
-    detail: "127 eyes notified nearby",
+    detail: "Members nearby notified",
   },
   {
     key: "sighting",
@@ -46,8 +47,10 @@ export function MobileRecoveryFlow() {
   const [activeIdx, setActiveIdx] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const reduceMotion = useReducedMotion()
 
   useEffect(() => {
+    if (reduceMotion) return // stay on the first stage, no cycling
     const advance = () => {
       setIsAnimating(true)
       timerRef.current = setTimeout(() => {
@@ -61,7 +64,7 @@ export function MobileRecoveryFlow() {
       clearInterval(interval)
       if (timerRef.current) clearTimeout(timerRef.current)
     }
-  }, [])
+  }, [reduceMotion])
 
   const active = stages[activeIdx]
   const ActiveIcon = active.icon
