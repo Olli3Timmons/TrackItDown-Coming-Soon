@@ -320,14 +320,14 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Hero radar rings: two pulses each, staggered 0.6s, all finished by 4.8s */
+/* Hero radar rings: continuous staggered pulses; paused with the hero's pause button */
 @keyframes hero-ping {
   /* starts just outside the phone's width so the ring is visible, not hidden behind it */
   from { transform: scale(1.05); opacity: 0.8; }
   to { transform: scale(2); opacity: 0; }
 }
 .hero-ping {
-  animation: hero-ping 1.8s cubic-bezier(0, 0, 0.2, 1) 2 both;
+  animation: hero-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite both;
 }
 
 /* Mobile performance: disable heavy GPU animations */

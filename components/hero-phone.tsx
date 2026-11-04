@@ -2,42 +2,50 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
+import { Pause, Play } from "lucide-react"
 import { PhoneFrame } from "@/components/phone-frame"
 
-// The app's story in three screens; the last one stays. Swap the files when the demo screenshots arrive.
+// The app's story in three screens, looping. Swap the files when the demo screenshots arrive.
 const frames = [
-  { src: "/images/app/step-1.webp", label: "Vehicle reported" },
-  { src: "/images/app/step-2.webp", label: "Nearby members alerted" },
-  { src: "/images/app/hero.webp", label: "Sightings come in" },
+  { src: "/images/app/step-1.webp", label: "Vehicle reported", ms: 1800 },
+  { src: "/images/app/step-2.webp", label: "Nearby members alerted", ms: 1800 },
+  { src: "/images/app/hero.webp", label: "Sightings come in", ms: 3200 },
 ]
-const STEP_MS = 1500 // settles at 3s; rings stop at 4.8s — inside WCAG 2.2.2's 5s limit, so no pause control needed
 
 export function HeroPhone() {
   const [frame, setFrame] = useState(0)
+  const [playing, setPlaying] = useState(true)
+  const [reducedMotion, setReducedMotion] = useState(false)
   const tiltRef = useRef<HTMLDivElement>(null)
 
+  // Reduced motion: show the final screen, still
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setReducedMotion(true)
+      setPlaying(false)
       setFrame(frames.length - 1)
-      return
     }
-    const timers = frames.slice(1).map((_, i) => setTimeout(() => setFrame(i + 1), STEP_MS * (i + 1)))
+  }, [])
 
-    // Gentle tilt towards the pointer, mouse devices only (touch screens stay still)
+  // Advance the story; loops back to the start
+  useEffect(() => {
+    if (!playing) return
+    const t = setTimeout(() => setFrame((f) => (f + 1) % frames.length), frames[frame].ms)
+    return () => clearTimeout(t)
+  }, [playing, frame])
+
+  // Gentle tilt towards the pointer, mouse devices only (touch screens stay still)
+  useEffect(() => {
+    if (reducedMotion || !matchMedia("(hover: hover) and (pointer: fine)").matches) return
     const el = tiltRef.current
-    const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches
     const onMove = (e: PointerEvent) => {
       const x = e.clientX / innerWidth - 0.5
       const y = e.clientY / innerHeight - 0.5
       if (el) el.style.transform = `perspective(1000px) rotateY(${x * 14}deg) rotateX(${-y * 10}deg)`
     }
-    if (finePointer) addEventListener("pointermove", onMove, { passive: true })
-
-    return () => {
-      timers.forEach(clearTimeout)
-      removeEventListener("pointermove", onMove)
-    }
-  }, [])
+    addEventListener("pointermove", onMove, { passive: true })
+    return () => removeEventListener("pointermove", onMove)
+  }, [reducedMotion])
 
   return (
     <div className="relative mx-auto w-[260px] sm:w-[300px] lg:w-[320px]">
@@ -47,7 +55,7 @@ export function HeroPhone() {
           <span
             key={i}
             className="hero-ping absolute aspect-square w-full rounded-full border-2 border-white/40"
-            style={{ animationDelay: `${i * 0.6}s` }}
+            style={{ animationDelay: `${i * 0.6}s`, animationPlayState: playing ? "running" : "paused" }}
           />
         ))}
       </div>
@@ -68,13 +76,25 @@ export function HeroPhone() {
         </PhoneFrame>
       </div>
 
-      {/* Step caption + progress */}
-      <div aria-hidden="true" className="mt-6 flex flex-col items-center gap-3">
-        <p className="text-sm font-medium text-foreground">{frames[frame].label}</p>
-        <div className="flex gap-1.5">
-          {frames.map((f, i) => (
-            <span key={f.src} className={`h-1 rounded-full transition-all duration-500 ${i <= frame ? "w-6 bg-foreground" : "w-3 bg-muted"}`} />
-          ))}
+      {/* Step caption, progress and pause control (WCAG 2.2.2: looping motion must be pausable) */}
+      <div className="mt-6 flex flex-col items-center gap-3">
+        <p aria-hidden="true" className="text-sm font-medium text-foreground">{frames[frame].label}</p>
+        <div className="flex items-center gap-3">
+          <div aria-hidden="true" className="flex gap-1.5">
+            {frames.map((f, i) => (
+              <span key={f.src} className={`h-1 rounded-full transition-all duration-500 ${i <= frame ? "w-6 bg-foreground" : "w-3 bg-muted"}`} />
+            ))}
+          </div>
+          {!reducedMotion && (
+            <button
+              type="button"
+              onClick={() => setPlaying((p) => !p)}
+              aria-label={playing ? "Pause animation" : "Play animation"}
+              className="flex h-7 w-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              {playing ? <Pause className="h-3.5 w-3.5" aria-hidden="true" /> : <Play className="h-3.5 w-3.5" aria-hidden="true" />}
+            </button>
+          )}
         </div>
       </div>
     </div>
