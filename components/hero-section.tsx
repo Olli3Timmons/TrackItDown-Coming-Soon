@@ -1,6 +1,6 @@
 import { ChevronDown, Clock, MapPin, PoundSterling } from "lucide-react"
 import { StoreBadges } from "@/components/store-badges"
-import { PhoneFrame } from "@/components/phone-frame"
+import { HeroPhone } from "@/components/hero-phone"
 
 const stats = [
   { icon: Clock, title: "Under a minute", sub: "To report" },
@@ -45,12 +45,7 @@ export function HeroSection() {
           </ul>
         </div>
 
-        <PhoneFrame
-          src="/images/app/hero.webp"
-          alt="TrackItDown app showing stolen vehicles reported near you"
-          priority
-          className="mx-auto w-[260px] sm:w-[300px] lg:w-[320px] lg:rotate-2"
-        />
+        <HeroPhone />
       </div>
 
       <a
