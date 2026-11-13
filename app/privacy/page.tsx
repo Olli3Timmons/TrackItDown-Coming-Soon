@@ -11,7 +11,7 @@ const CONTACT_EMAIL = "trackitdowwnn@gmail.com"
 export default function PrivacyPage() {
   return (
     <main id="main-content" className="min-h-screen">
-      <article className="mx-auto max-w-2xl px-4 py-16 text-muted-foreground [&_a]:text-foreground [&_a]:underline [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-foreground [&_li]:mt-2 [&_p]:mt-3 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-5">
+      <article className="mx-auto max-w-2xl px-4 py-16 text-muted-foreground [&_a]:text-link [&_a]:underline [&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-foreground [&_li]:mt-2 [&_p]:mt-3 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-5">
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Privacy notice</h1>
         <p>Last updated: 4 November 2026</p>
 

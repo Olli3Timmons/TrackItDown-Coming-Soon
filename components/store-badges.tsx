@@ -20,13 +20,13 @@ export function StoreBadges({ className }: { className?: string }) {
       {stores.map(({ label, path }) => (
         <li
           key={label}
-          className="flex h-14 items-center gap-3 rounded-xl bg-white px-5 text-neutral-950 shadow-lg shadow-black/40"
+          className="flex h-14 items-center gap-3 rounded-xl bg-primary px-5 text-primary-foreground"
         >
           <svg viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6 shrink-0" aria-hidden="true">
             <path d={path} />
           </svg>
           <span className="flex flex-col leading-tight text-left">
-            <span className="text-[11px] uppercase tracking-wide text-neutral-500">Coming soon to</span>
+            <span className="text-[11px] opacity-70">Coming soon to</span>
             <span className="text-base font-semibold">{label}</span>
           </span>
         </li>

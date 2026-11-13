@@ -1,15 +1,9 @@
-import type { Metadata } from 'next'
-import { Nunito_Sans } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { Header } from '@/components/header'
 import './globals.css'
 
-const nunitoSans = Nunito_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  display: 'swap',
-  variable: '--font-nunito-sans',
-})
+export const viewport: Viewport = { themeColor: '#ffffff' }
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://trackitdown.co.uk'),
@@ -41,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${nunitoSans.variable} font-sans antialiased`}>
+      <body className="font-sans antialiased">
         <a
           href="#main-content"
           className="skip-link absolute left-2 top-2 z-50 rounded border border-primary bg-primary/90 p-2 text-sm font-medium text-primary-foreground opacity-0 transition-all duration-150 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary"
