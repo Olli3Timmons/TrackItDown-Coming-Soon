@@ -75,7 +75,8 @@ export function HowItWorksSection() {
             ))}
           </ol>
 
-          <PhoneFrame alt={steps[step].alt} className="mx-auto h-[min(72vh,660px)] w-auto">
+          {/* Phone on the left so this doesn't repeat the hero's text-left, phone-right layout */}
+          <PhoneFrame alt={steps[step].alt} className="order-first mx-auto h-[min(72vh,660px)] w-auto">
             {steps.map((s, i) => (
               <Image
                 key={s.image}

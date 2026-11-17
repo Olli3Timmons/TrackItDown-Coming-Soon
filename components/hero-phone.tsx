@@ -52,9 +52,11 @@ export function HeroPhone() {
         </button>
       </div>
 
-      <div className="relative mx-auto mt-4 w-[280px] sm:w-[340px]">
-        {/* Radar rings: the alert spreading to people nearby */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 flex aspect-[600/1172] items-center justify-center">
+      {/* From lg the phone is sized by window height so it fits beside the text: 14rem covers the header,
+          padding and the caption row above; stops shrinking at 440px tall (shorter windows scroll) */}
+      <div className="relative mx-auto mt-4 w-[280px] sm:w-[340px] lg:aspect-[600/1172] lg:h-[clamp(440px,calc(100svh_-_14rem),660px)] lg:w-auto">
+        {/* Radar rings: the alert spreading to people nearby (behind the headline, see HeroSection) */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 -z-10 flex aspect-[600/1172] items-center justify-center">
           {[0, 1, 2].map((i) => (
             <span
               key={i}
