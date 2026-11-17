@@ -6,7 +6,8 @@ import './globals.css'
 export const viewport: Viewport = { themeColor: '#ffffff' }
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://trackitdown.co.uk'),
+  // www is the primary domain on Vercel (the bare domain redirects to it)
+  metadataBase: new URL('https://www.trackitdown.co.uk'),
   title: {
     default: 'TrackItDown - Community-Powered Stolen Vehicle Recovery',
     template: '%s | TrackItDown',
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     title: 'TrackItDown — Report & Find Stolen Vehicles',
     description: 'Report stolen vehicles, crowdsourced sightings, and safer recoveries with local communities.',
     type: 'website',
-    url: 'https://trackitdown.co.uk',
+    url: 'https://www.trackitdown.co.uk',
     siteName: 'TrackItDown',
   },
   // Preview image, favicon and Apple icon come from app/opengraph-image.tsx, app/icon.svg and app/apple-icon.png

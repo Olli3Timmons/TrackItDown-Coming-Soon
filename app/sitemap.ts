@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [{ url: "https://trackitdown.co.uk" }, { url: "https://trackitdown.co.uk/privacy" }]
+  return [{ url: "https://www.trackitdown.co.uk" }, { url: "https://www.trackitdown.co.uk/privacy" }]
 }

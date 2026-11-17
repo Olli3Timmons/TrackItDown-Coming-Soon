@@ -1,5 +1,3 @@
-import { StoreBadges } from "@/components/store-badges"
-
 export function CtaSection() {
   return (
     <section id="download" className="band-dark scroll-mt-12 px-4 py-24 sm:py-32">
@@ -12,7 +10,6 @@ export function CtaSection() {
         <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground sm:text-xl">
           Report a stolen vehicle in under a minute and let people nearby help you find it. Coming soon to the App Store and Google Play.
         </p>
-        <StoreBadges className="mt-10 justify-center" />
       </div>
     </section>
   )

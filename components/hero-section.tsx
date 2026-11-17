@@ -1,4 +1,3 @@
-import { StoreBadges } from "@/components/store-badges"
 import { HeroPhone } from "@/components/hero-phone"
 
 const stats = [
@@ -7,11 +6,15 @@ const stats = [
   { title: "Rewards", sub: "Set by owners" },
 ]
 
+// Each point is backed elsewhere on the page (Safety section, founder quote); keep it that way.
+// Order matters: the two shorter points share a line on phones.
+const trust = ["UK-wide", "Started by a driver whose car was stolen", "Independent, not affiliated with any police force"]
+
 export function HeroSection() {
   return (
     <section className="overflow-hidden px-4 pt-16 pb-20 text-center sm:pt-24 sm:pb-28">
       <div className="mx-auto max-w-4xl">
-        <p className="text-lg font-semibold text-muted-foreground sm:text-xl">TrackItDown</p>
+        <p className="text-lg font-semibold text-muted-foreground sm:text-xl">Coming soon to iPhone and Android</p>
         <h1 className="mt-3 text-5xl font-semibold leading-[1.05] tracking-[-0.03em] text-foreground text-balance sm:text-7xl">
           Stolen vehicle? Your community can help find it.
         </h1>
@@ -19,14 +22,23 @@ export function HeroSection() {
           Report it in under a minute, alert people nearby, and see sightings on a map you can share with the police.
         </p>
 
-        <StoreBadges className="mt-10 justify-center" />
-
-        <a href="#how-it-works" className="mt-6 inline-block text-lg text-link hover:underline">
-          See how it works <span aria-hidden="true">›</span>
+        <a
+          href="#how-it-works"
+          className="mt-10 inline-flex h-12 items-center rounded-full bg-primary px-7 text-base font-medium text-primary-foreground transition-opacity hover:opacity-85"
+        >
+          See how it works
         </a>
+
+        <p className="mx-auto mt-5 max-w-2xl text-sm text-muted-foreground">
+          {trust.map((t, i) => (
+            <span key={t}>
+              <span className="whitespace-nowrap">{i < trust.length - 1 ? `${t} ·` : t}</span>{" "}
+            </span>
+          ))}
+        </p>
       </div>
 
-      <div className="mt-16 sm:mt-20">
+      <div className="mt-12 sm:mt-14">
         <HeroPhone />
       </div>
 

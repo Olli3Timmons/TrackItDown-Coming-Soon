@@ -37,14 +37,14 @@ export function Header() {
         </Link>
 
         <Link
-          href="/#download"
+          href="/#how-it-works"
           tabIndex={scrolled ? 0 : -1}
           aria-hidden={!scrolled}
           className={`relative inline-flex items-center rounded-full bg-primary px-3.5 py-1 text-xs font-medium text-primary-foreground transition-opacity duration-300 before:absolute before:-inset-x-1 before:-inset-y-2.5 before:content-[''] hover:opacity-85 ${
             scrolled ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
         >
-          Coming soon
+          How it works
         </Link>
       </div>
     </header>
