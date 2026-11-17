@@ -12,7 +12,6 @@ export const metadata: Metadata = {
     template: '%s | TrackItDown',
   },
   description: 'Report stolen vehicles, alert nearby communities, and increase recovery chances through safe crowdsourced sightings across the UK.',
-  generator: 'v0.app',
   openGraph: {
     title: 'TrackItDown — Report & Find Stolen Vehicles',
     description: 'Report stolen vehicles, crowdsourced sightings, and safer recoveries with local communities.',

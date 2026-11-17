@@ -44,7 +44,7 @@ export function Header() {
             scrolled ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
         >
-          Get the app
+          Coming soon
         </Link>
       </div>
     </header>
