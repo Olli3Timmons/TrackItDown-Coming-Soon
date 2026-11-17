@@ -1,4 +1,5 @@
 import { HeroPhone } from "@/components/hero-phone"
+import { Reveal } from "@/components/reveal"
 
 const stats = [
   { title: "Under a minute", sub: "To report" },
@@ -19,7 +20,7 @@ export function HeroSection() {
       <div className="mx-auto max-w-5xl lg:grid lg:grid-cols-2 lg:items-center lg:gap-12">
         <div className="mx-auto max-w-4xl lg:mx-0 lg:text-left">
           <p className="text-lg font-semibold text-muted-foreground sm:text-xl">Coming soon to iPhone and Android</p>
-          <h1 className="mt-3 text-5xl font-semibold leading-[1.05] tracking-[-0.03em] text-foreground text-balance sm:text-7xl lg:text-6xl">
+          <h1 className="mt-3 text-[2.625rem] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground text-balance sm:text-7xl lg:text-6xl">
             Stolen vehicle? Your community can help find it.
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground text-pretty sm:text-xl lg:mx-0">
@@ -47,14 +48,17 @@ export function HeroSection() {
         </div>
       </div>
 
-      <ul className="mx-auto mt-16 grid max-w-3xl grid-cols-3 gap-6 lg:mt-20">
-        {stats.map(({ title, sub }) => (
-          <li key={title}>
-            <span className="block text-lg font-semibold text-foreground sm:text-2xl">{title}</span>
-            <span className="mt-1 block text-sm text-muted-foreground">{sub}</span>
-          </li>
-        ))}
-      </ul>
+      {/* Below the fold at every size, so it can reveal on scroll */}
+      <Reveal>
+        <ul className="mx-auto mt-16 grid max-w-3xl grid-cols-3 gap-6 lg:mt-20">
+          {stats.map(({ title, sub }) => (
+            <li key={title}>
+              <span className="block text-lg font-semibold text-foreground sm:text-2xl">{title}</span>
+              <span className="mt-1 block text-sm text-muted-foreground">{sub}</span>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
     </section>
   )
 }

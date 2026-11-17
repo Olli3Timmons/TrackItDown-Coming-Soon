@@ -1,7 +1,13 @@
 import type { Metadata, Viewport } from 'next'
+import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { Header } from '@/components/header'
+import { MotionProvider } from '@/components/motion-provider'
 import './globals.css'
+
+// Apple devices use the system font (SF Pro, which Apple doesn't license for web hosting); everyone else gets Inter.
+// next/font self-hosts it, so visitors make no requests to Google.
+const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' })
 
 export const viewport: Viewport = { themeColor: '#ffffff' }
 
@@ -35,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">
+      <body className={`${inter.variable} font-sans antialiased`}>
         <a
           href="#main-content"
           className="skip-link absolute left-2 top-2 z-50 rounded border border-primary bg-primary/90 p-2 text-sm font-medium text-primary-foreground opacity-0 transition-all duration-150 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary"
@@ -43,7 +49,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <Header />
-        {children}
+        <MotionProvider>{children}</MotionProvider>
         <Analytics />
       </body>
     </html>

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { PhoneFrame } from "@/components/phone-frame"
+import { Reveal } from "@/components/reveal"
 
 const steps = [
   {
@@ -53,8 +54,10 @@ export function HowItWorksSection() {
   return (
     <section id="how-it-works" className="band-dark scroll-mt-12 px-4">
       <div className="mx-auto max-w-5xl pt-24 text-center sm:pt-32">
-        <h2 className="text-4xl font-semibold tracking-[-0.02em] text-balance sm:text-6xl">How TrackItDown works.</h2>
-        <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground sm:text-xl">From stolen to spotted, in three steps.</p>
+        <Reveal>
+          <h2 className="text-4xl font-semibold tracking-[-0.02em] text-balance sm:text-6xl">How TrackItDown works.</h2>
+          <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground sm:text-xl">From stolen to spotted, in three steps.</p>
+        </Reveal>
       </div>
 
       {/* Both layouts are in the server HTML and CSS picks one, so nothing jumps after hydration:
